@@ -303,7 +303,7 @@ setMethod('filterMF',signature = 'MetaboliteDatabase',
 #' @importFrom mzAnnotation calcM isotope_rules ppmRange ppmError
 #' @importFrom tibble deframe
 #' @importFrom rlang parse_expr
-#' @importFrom dplyr left_join
+#' @importFrom dplyr left_join right_join
 #' @export
 
 setGeneric('calcAdducts',function(db,id,adduct_rules_table = adduct_rules())

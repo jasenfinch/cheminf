@@ -1,3 +1,4 @@
+#' @importFrom tibble tibble
 
 setClass(
   'MetaboliteDatabase',

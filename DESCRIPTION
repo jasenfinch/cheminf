@@ -5,11 +5,18 @@ Authors@R:
     person("Jasen", "Finch", , "jsf9@aber.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6070-7476"))
 Description: A collection of chemoinformatics tools to aid the annotation of untargeted electrospray ionisation mass spectrometry (ESI-MS) metabolomics data.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    covr
+Remotes: bioc::zlibbioc
 Config/testthat/edition: 3
+LinkingTo: 
+    Rcpp
+Imports: 
+    Rcpp,
+    tibble
+LazyData: true

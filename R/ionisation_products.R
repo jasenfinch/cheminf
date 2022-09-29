@@ -4,7 +4,9 @@
 #' @param adduct_rules_table table of adduct rules. Defaults to adducts()
 #' @examples 
 #' ionisationProducts(amino_acids$SMILES[1])
-#' @importFrom dplyr ungroup rowwise
+#' @importFrom dplyr ungroup rowwise bind_cols
+#' @importFrom tibble as_tibble
+#' @importFrom mzAnnotation adduct_rules calcMZ adductTransformMF count.elements
 #' @export
 
 ionisationProducts <- function(SMILES,adduct_rules_table = adduct_rules()){

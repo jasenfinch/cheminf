@@ -1,6 +1,4 @@
 
-context('conversion')
-
 test_that('conversion works',{
   testthat::skip_on_os('windows')
   

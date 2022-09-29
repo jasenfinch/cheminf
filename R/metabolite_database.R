@@ -300,6 +300,10 @@ setMethod('filterMF',signature = 'MetaboliteDatabase',
 #' ## Calculate adduct m/z for a database entry
 #' calcAdducts(metabolite_database,1)
 #' 
+#' @importFrom mzAnnotation calcM isotope_rules ppmRange ppmError
+#' @importFrom tibble deframe
+#' @importFrom rlang parse_expr
+#' @importFrom dplyr left_join
 #' @export
 
 setGeneric('calcAdducts',function(db,id,adduct_rules_table = adduct_rules())

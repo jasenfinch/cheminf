@@ -17,6 +17,10 @@ Config/testthat/edition: 3
 LinkingTo: 
     Rcpp
 Imports: 
+    dplyr,
+    mzAnnotation,
     Rcpp,
+    rlang,
     tibble
+Remote: jasenfinch/mzAnnotation@devel
 LazyData: true

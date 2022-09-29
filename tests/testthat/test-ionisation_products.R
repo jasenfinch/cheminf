@@ -1,6 +1,4 @@
 
-context('ionisation products')
-
 test_that('ionisationProducts',{
   ips <- ionisationProducts(amino_acids$SMILES[1])
   expect_equal(nrow(ips),58)

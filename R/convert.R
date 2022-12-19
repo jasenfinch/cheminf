@@ -4,7 +4,7 @@
 #' @param input_type either "smiles" or "inchi", denoting the input type
 #' @param output_type either "smiles", "inchi" or "inchikey", denoting the output type
 #' @examples
-#' convert("C[C@@H](C(=O)O)N",'smiles','inchi')
+#' convert("C[C@@H](C(=O)O)N",'SMILES','INCHI')
 #' @importFrom ChemmineOB convertFormat
 #' @importFrom stringr str_remove_all
 #' @export

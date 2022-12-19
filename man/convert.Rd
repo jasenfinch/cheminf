@@ -6,8 +6,8 @@
 \usage{
 convert(
   input,
-  input_type = c("smiles", "inchi"),
-  output_type = c("inchi", "inchikey", "smiles")
+  input_type = c("SMILES", "INCHI"),
+  output_type = c("INCHI", "INCHIKEY", "SMILES")
 )
 }
 \arguments{
@@ -21,5 +21,5 @@ convert(
 convert between SMILES and Inchi and to InchiKey
 }
 \examples{
-convert("C[C@H](C(=O)O)N",'smiles','inchi')
+convert("C[C@H](C(=O)O)N",'SMILES','INCHI')
 }

@@ -4,18 +4,22 @@
 \alias{convert}
 \title{Convert chemical notation}
 \usage{
-convert(input, inputType, outputType)
+convert(
+  input,
+  input_type = c("smiles", "inchi"),
+  output_type = c("inchi", "inchikey", "smiles")
+)
 }
 \arguments{
 \item{input}{a valid SMILE or Inchi}
 
-\item{inputType}{either "smiles" or "inchi", denoting the input type}
+\item{input_type}{either "smiles" or "inchi", denoting the input type}
 
-\item{outputType}{either "smiles", "inchi" or "inchikey", denoting the output type}
+\item{output_type}{either "smiles", "inchi" or "inchikey", denoting the output type}
 }
 \description{
 convert between SMILES and Inchi and to InchiKey
 }
 \examples{
-convert(amino_acids$SMILES[1],'smiles','inchi')
+convert("C[C@H](C(=O)O)N",'smiles','inchi')
 }

@@ -1,14 +1,35 @@
+#' SMARTS substructure search
+#' @description SMARTS substructure searching for SMILES chemical structures.
+#' @param SMILES a valid SMILES structure string
+#' @param SMARTS a valid SMARTS symbol
+#' @examples
+#' smartsSearch("C[C@@H](C(=O)O)N","[OX2H]")
+#' @importFrom ChemmineOB smartsSearch_OB
+#' @export
+
+smartsSearch <- function(SMILES,SMARTS){
+  
+  if (length(SMILES) > 1){
+    stop('Argument `SMILES` should be of length 1.',
+         call. = FALSE)
+  }
+  
+  molRefs = forEachMol("SMILES",SMILES,identity)
+  smartsSearch_OB(molRefs,SMARTS)
+}
+
 #' Chemical descriptors
 #' @param SMILES a character vector of valid SMILES
-#' @importFrom dplyr mutate
+#' @importFrom dplyr mutate relocate
 #' @importFrom purrr map
-#' @importFrom furrr future_map_dbl future_map_int future_map_chr furrr_options
+#' @importFrom furrr future_map_dfr future_map_int future_map_chr furrr_options future_map_dbl
 #' @export
 #' @examples
 #' data(amino_acids)
 #' chemicalDescriptors(amino_acids$SMILES)
 
 chemicalDescriptors <- function(SMILES){
+  
   desc <- c('HBA1',
             'HBA2',
             'HBD',
@@ -16,20 +37,18 @@ chemicalDescriptors <- function(SMILES){
             'TPSA'
   )
   
-  descs <- desc %>%
-    map(~{
-      descType <- .
-      future_map_dbl(SMILES,~{
-        m <- .
-        m %>%
-          descriptor(descType)
+  descs <- SMILES %>% 
+      future_map_dfr(~{
+        molRefs = forEachMol("SMILES",.x,identity)
+        
+        prop_OB(molRefs) %>% 
+          {.[,colnames(.) %in% desc]} %>% 
+          as_tibble() %>% 
+          mutate(MF = smilesToMF(.x))
       },
-      .options = furrr_options(seed = TRUE))
-    })
-  names(descs) <- desc
-  
-  descs <- descs %>%
-    bind_cols()
+      .options = furrr_options(seed = TRUE)) %>% 
+    mutate(SMILES = SMILES) %>% 
+    relocate(SMILES:MF,.before = 'HBA1')
   
   Fgroups <- tibble(Name = c('Negative_Charge',
                              'Positive_Charge',
@@ -62,15 +81,14 @@ chemicalDescriptors <- function(SMILES){
     }) %>%
     bind_cols()
   
-  desc <- bind_cols(SMILES = SMILES,descs,groups) %>%
+  desc <- bind_cols(descs,groups) %>%
     mutate(Total_Charge = -Negative_Charge + Positive_Charge,
            MF = future_map_chr(SMILES,smilesToMF,
                                .options = furrr_options(seed = TRUE)),
            `Accurate_Mass` = future_map_dbl(SMILES,smilesToAccurateMass,
                                             .options = furrr_options(seed = TRUE)) %>% round(5)
-           ) %>%
-    
-    select(SMILES,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)
+           ) %>% 
+    relocate(Accurate_Mass,.after = 'MF')
   
   return(desc)
 }

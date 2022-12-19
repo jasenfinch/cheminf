@@ -1,12 +1,3 @@
-
-OBformat <- function(format){
-  switch(format,
-         smiles = 'SMI',
-         inchi = 'INCHI',
-         inchikey = 'INCHIKEY')
-}
-
-
 #' Convert chemical notation
 #' @description convert between SMILES and Inchi and to InchiKey
 #' @param input a valid SMILE or Inchi
@@ -19,22 +10,18 @@ OBformat <- function(format){
 #' @export
 
 convert <- function(input, 
-                    input_type = c('smiles','inchi'), 
-                    output_type = c('inchi','inchikey','smiles')) {
+                    input_type = c('SMILES','INCHI'), 
+                    output_type = c('INCHI','INCHIKEY','SMILES')) {
 
   input_type <- match.arg(
     input_type,
-    choices = c('smiles','inchi')
+    choices = c('SMILES','INCHI')
   )
-  
-  input_type <- OBformat(input_type)
-  
+
   output_type <- match.arg(
     output_type,
-    choices = c('inchi','inchikey','smiles')
+    choices = c('INCHI','INCHIKEY','SMILES')
   )
-  
-  output_type <- OBformat(output_type)
   
   output <- convertFormat(input_type,output_type,input,
                           options = data.frame()) %>% 

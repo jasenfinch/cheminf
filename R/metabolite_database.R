@@ -1,4 +1,10 @@
+#' MetaboliteDatabase S4 class
+#' @rdname MetaboliteDatabase-class
+#' @description An S4 class for a metabolite ionisation database.
+#' @slot entries database metabolite entries
+#' @slot descriptors chemical descriptors of metabolite database entries
 #' @importFrom tibble tibble
+#' @export
 
 setClass(
   'MetaboliteDatabase',

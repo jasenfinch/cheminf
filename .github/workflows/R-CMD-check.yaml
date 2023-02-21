@@ -42,7 +42,7 @@ jobs:
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo apt install libopenbabel-dev
+          sudo apt install libopenbabel-dev libeigen3-dev
               
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:

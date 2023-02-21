@@ -21,10 +21,10 @@ jobs:
         with:
           use-public-rspm: true
           
-     - name: Install Linux system dependencies
-       if: runner.os == 'Linux'
-       run: |
-        sudo apt install libopenbabel-dev libeigen3-dev
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install libopenbabel-dev libeigen3-dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:

@@ -3,9 +3,12 @@
 #' @param input a valid SMILE or InChI
 #' @param input_type either `"SMILES"` or `"INCHI"`, denoting the input type
 #' @param output_type either `"SMILES"`, `"INCHI"` or `"INCHIKEY"`, denoting the output type
+#' @details This functionality is not currently supported on Windows.
 #' @return The converted chemical structure.
 #' @examples
-#' convert("C[C@@H](C(=O)O)N",'SMILES','INCHI')
+#' if (Sys.info()["sysname"] != 'Windows'){
+#'   convert("C[C@@H](C(=O)O)N",'SMILES','INCHI')
+#' }
 #' @importFrom ChemmineOB convertFormat
 #' @importFrom stringr str_remove_all
 #' @export

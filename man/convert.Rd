@@ -23,6 +23,11 @@ The converted chemical structure.
 \description{
 Convert between SMILES and InChI and to InchiKey chemical structure notations.
 }
+\details{
+This functionality is not currently supported on Windows.
+}
 \examples{
-convert("C[C@H](C(=O)O)N",'SMILES','INCHI')
+if (Sys.info()["sysname"] != 'Windows'){
+  convert("C[C@H](C(=O)O)N",'SMILES','INCHI')
+}
 }

@@ -1,6 +1,6 @@
 #' MetaboliteDatabase S4 class
 #' @rdname MetaboliteDatabase-class
-#' @description An S4 class for a metabolite ionisation database.
+#' @description An S4 class for a metabolite electrospray ionisation database.
 #' @slot entries database metabolite entries
 #' @slot descriptors chemical descriptors of metabolite database entries
 #' @importFrom tibble tibble
@@ -26,11 +26,19 @@ setMethod('show',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Create a metabolite database
-#' @description Build a metabolite database ready for use.
-#' @param entries tibble containing accession information. If \code{type = 'remote'} this should be the name of the table containing the accession information within the SQL database.
+#' Create a metabolite ionisation database
+#' @description Construct a metabolite electrospray ionisation database.
+#' @param entries tibble containing accession information. See details.
+#' of the table containing the accession information within the SQL database.
+#' @details 
+#' The `entries` tibble should contain at least the following columns:
+#' * ID - Metabolite identification numbers
+#' * NAME - Metabolite names
+#' * SMILES - The metabolite SMILES structures
+#' @return An object of S4 class `MetaboliteDatabase`
 #' @examples 
 #' db <- metaboliteDB(amino_acids)
+#' db
 #' @importFrom dplyr tbl
 #' @importFrom purrr map_chr
 #' @importFrom methods new
@@ -56,59 +64,7 @@ metaboliteDB <- function(entries){
   return(db)
 }
 
-#' Retrieve database entries
-#' @rdname accessors
-#' @description Get or set tables in a `MetaboliteDatabase` class object.
-#' @param db object of S4 class `MetaboliteDatabase`
-#' 
-#' @export
-
-setGeneric('entries',function(db)
-  standardGeneric('entries'))
-
-#' @rdname accessors
-
-setMethod('entries',signature = 'MetaboliteDatabase',
-          function(db){
-            db@entries
-          }
-)
-
-setGeneric('entries<-',function(db,value)
-  standardGeneric('entries<-'))
-
-setMethod('entries<-',signature = 'MetaboliteDatabase',
-          function(db,value){
-            db@entries <- value
-            return(db)
-          }
-)
-
-#' @rdname accessors
-#' @export
-
-setGeneric('descriptors',function(db) 
-  standardGeneric('descriptors'))
-
-#' @rdname accessors
-
-setMethod('descriptors',signature = 'MetaboliteDatabase',
-          function(db){
-            db@descriptors
-          }
-)
-
-setGeneric('descriptors<-',function(db,value)
-  standardGeneric('descriptors<-'))
-
-setMethod('descriptors<-',signature = 'MetaboliteDatabase',
-          function(db,value){
-            db@descriptors <- value
-            return(db)
-          }
-)
-
-#' Metabolite database utilities
+#' Metabolite database utility methods
 #' @rdname utilities
 #' @description Utilities for working with metabolite databases.
 #' @param db S4 object of class `MetaboliteDatabase`
@@ -117,9 +73,26 @@ setMethod('descriptors<-',signature = 'MetaboliteDatabase',
 #' @param rule a filtering expression
 #' @param lower lower mass boundary
 #' @param upper upper mass boundary
-#' @return An S4 object of class `MetaboliteDatabase`.
+#' @details 
+#' * `entries` - return the metabolite entries
+#' * `descriptors` - return the metabolite entry chemical descriptors
+#' * `nEntries` - return the number of metabolite entries
+#' * `filterEntries` - filter the metabolite entries based on a vector of metabolite IDs
+#' * `filterMR` - filter the metabolite entries based on a mass range
+#' * `filterER` - filter the metabolite entries based on an element frequency rule
+#' * `filterIP` - filter the metabolite entries based on an ionisation product rule
+#' * `filterMF` - filter the metabolite entries based on a molecular formula
+#' @return A tibble containing metabolite entry information, the number of metabolite entires or an 
+#' S4 object of class `MetaboliteDatabase` depending on the method used.
 #' @examples 
+#' ## Create a metablite ionisation database using the example amino acid data
 #' metabolite_database <- metaboliteDB(amino_acids)
+#' 
+#' ## Return the entries
+#' entries(metabolite_database)
+#' 
+#' ## Return the chemical descriptors
+#' descriptors(metabolite_database)
 #' 
 #' ## Return the number of database entries
 #' nEntries(metabolite_database)
@@ -138,6 +111,54 @@ setMethod('descriptors<-',signature = 'MetaboliteDatabase',
 #' 
 #' ## Filter a database by a molecular formula
 #' filterMF(metabolite_database,"C3H7NO2")
+#' @export
+
+setGeneric('entries',function(db)
+  standardGeneric('entries'))
+
+#' @rdname utilities
+
+setMethod('entries',signature = 'MetaboliteDatabase',
+          function(db){
+            db@entries
+          }
+)
+
+setGeneric('entries<-',function(db,value)
+  standardGeneric('entries<-'))
+
+setMethod('entries<-',signature = 'MetaboliteDatabase',
+          function(db,value){
+            db@entries <- value
+            return(db)
+          }
+)
+
+#' @rdname utilities
+#' @export
+
+setGeneric('descriptors',function(db) 
+  standardGeneric('descriptors'))
+
+#' @rdname utilities
+
+setMethod('descriptors',signature = 'MetaboliteDatabase',
+          function(db){
+            db@descriptors
+          }
+)
+
+setGeneric('descriptors<-',function(db,value)
+  standardGeneric('descriptors<-'))
+
+setMethod('descriptors<-',signature = 'MetaboliteDatabase',
+          function(db,value){
+            db@descriptors <- value
+            return(db)
+          }
+)
+
+#' @rdname utilities
 #' @export
 
 setGeneric("nEntries", function(db) {
@@ -280,19 +301,22 @@ setMethod('filterMF',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Metabolite database ionisation product searches
+#' Ionisation product searches of a metabolite database 
 #' @rdname products
 #' @description Methods for metabolite database ionisation product searches
 #' @param db S4 object of class `MetaboliteDatabase`
 #' @param id Database entry ID
-#' @param mz search mass to charge ratio
-#' @param adduct search adduct
-#' @param ppm search ppm error
-#' @param isotope search isotope
+#' @param mz mass to charge ratio to search
+#' @param adduct the search adduct as available in `mzAnnotation::adduct_names()`
+#' @param ppm the parts per million error search threshold
+#' @param isotope the search isotope as available in `mzAnnotation::isotope_names()`
 #' @param adduct_rules_table table containing adduct formation rules. Defaults to `adduct_rules()`.
 #' @param isotope_rules_table table containing isotope rules. Defaults to `isotope_rules()`.
+#' @details 
+#' * `PIPsearch` - perform a putative ionisation product search on a metabolite database
+#' * `calcAdducts` - calculate adduct mass to charge ratios for a metabolite database entry
 #' @return 
-#' A tibble containing the relevant product search results depending on the method used
+#' A tibble containing the relevant product search results depending on the method used.
 #' @examples 
 #' metabolite_database <- metaboliteDB(amino_acids)
 #' 

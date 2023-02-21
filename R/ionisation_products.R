@@ -1,7 +1,8 @@
-#' Ionisation products
-#' @description Calculate ionisation products for a given SMILES.
+#' Calculate ionisation products for a SMILES structure
+#' @description Calculate electrospray ionisation product *m/z* for a SMILES structure.
 #' @param SMILES a valid SMILES string
 #' @param adduct_rules_table table of adduct rules. Defaults to adducts()
+#' @return A tibble containing the mass to charge ratios of electrospray ionisation products for the specified SMILES structure.
 #' @examples 
 #' ionisationProducts(amino_acids$SMILES[1])
 #' @importFrom dplyr ungroup rowwise bind_cols

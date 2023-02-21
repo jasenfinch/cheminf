@@ -5,7 +5,7 @@
 \alias{MetaboliteDatabase-class}
 \title{MetaboliteDatabase S4 class}
 \description{
-An S4 class for a metabolite ionisation database.
+An S4 class for a metabolite electrospray ionisation database.
 }
 \section{Slots}{
 

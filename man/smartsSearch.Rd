@@ -11,8 +11,11 @@ smartsSearch(SMILES, SMARTS)
 
 \item{SMARTS}{a valid SMARTS symbol}
 }
+\value{
+The number of SMARTS matches.
+}
 \description{
-SMARTS substructure searching for SMILES chemical structures.
+Perform a SMARTS substructure searches a SMILES chemical structure.
 }
 \examples{
 smartsSearch("C[C@H](C(=O)O)N","[OX2H]")

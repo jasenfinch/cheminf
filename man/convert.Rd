@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert.R
 \name{convert}
 \alias{convert}
-\title{Convert chemical notation}
+\title{Convert chemical structure notation}
 \usage{
 convert(
   input,
@@ -11,14 +11,17 @@ convert(
 )
 }
 \arguments{
-\item{input}{a valid SMILE or Inchi}
+\item{input}{a valid SMILE or InChI}
 
-\item{input_type}{either "smiles" or "inchi", denoting the input type}
+\item{input_type}{either \code{"SMILES"} or \code{"INCHI"}, denoting the input type}
 
-\item{output_type}{either "smiles", "inchi" or "inchikey", denoting the output type}
+\item{output_type}{either \code{"SMILES"}, \code{"INCHI"} or \code{"INCHIKEY"}, denoting the output type}
+}
+\value{
+The converted chemical structure.
 }
 \description{
-convert between SMILES and Inchi and to InchiKey
+Convert between SMILES and InChI and to InchiKey chemical structure notations.
 }
 \examples{
 convert("C[C@H](C(=O)O)N",'SMILES','INCHI')

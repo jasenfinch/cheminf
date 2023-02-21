@@ -2,17 +2,19 @@
 % Please edit documentation in R/descriptors.R
 \name{chemicalDescriptors}
 \alias{chemicalDescriptors}
-\title{Chemical descriptors}
+\title{Calculate chemical descriptors}
 \usage{
 chemicalDescriptors(SMILES)
 }
 \arguments{
 \item{SMILES}{a character vector of valid SMILES}
 }
+\value{
+A tibble containing the chemical descriptor information for the input SMILES.
+}
 \description{
-Chemical descriptors
+Calculate chemical descriptors from SMILES.
 }
 \examples{
-data(amino_acids)
 chemicalDescriptors(amino_acids$SMILES)
 }

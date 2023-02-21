@@ -421,7 +421,9 @@ setMethod('elementFreq',signature = 'MetaboliteDatabase',
               bind_rows(.id = 'MF') %>%
               right_join(db %>%
                            descriptors() %>%
-                           select(ID,MF), by = "MF") %>%
+                           select(ID,MF), 
+                         by = "MF",
+                         multiple = 'all') %>%
               select(ID,everything())
             return(MFs)
           })

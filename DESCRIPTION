@@ -26,7 +26,7 @@ Imports:
     rlang,
     stringr,
     tibble
-Remote: 
+Remotes: 
     bioc::ChemmineOB,
     aberHRML/mzAnnotation
 LazyData: true

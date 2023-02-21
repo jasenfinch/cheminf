@@ -30,3 +30,4 @@ Remote:
     bioc::ChemmineOB,
     aberHRML/mzAnnotation
 LazyData: true
+URL: https://jasenfinch.github.io/cheminf/

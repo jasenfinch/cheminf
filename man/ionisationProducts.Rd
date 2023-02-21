@@ -2,7 +2,7 @@
 % Please edit documentation in R/ionisation_products.R
 \name{ionisationProducts}
 \alias{ionisationProducts}
-\title{Ionisation products}
+\title{Calculate ionisation products for a SMILES structure}
 \usage{
 ionisationProducts(SMILES, adduct_rules_table = adduct_rules())
 }
@@ -11,8 +11,11 @@ ionisationProducts(SMILES, adduct_rules_table = adduct_rules())
 
 \item{adduct_rules_table}{table of adduct rules. Defaults to adducts()}
 }
+\value{
+A tibble containing the mass to charge ratios of electrospray ionisation products for the specified SMILES structure.
+}
 \description{
-Calculate ionisation products for a given SMILES.
+Calculate electrospray ionisation product \emph{m/z} for a SMILES structure.
 }
 \examples{
 ionisationProducts(amino_acids$SMILES[1])

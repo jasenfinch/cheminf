@@ -5,19 +5,19 @@
 \alias{amino_acids}
 \title{Example amino acids}
 \format{
-a tibble containing 20 rows and 6 columns
-\describe{
-\item{ACCESSION_ID}{}
-\item{NAME}{}
-\item{InChi}{}
-\item{InChiKey}{}
-\item{SMILES}{}
-}
+A tibble containing 20 rows and 6 columns.
 }
 \usage{
 amino_acids
 }
 \description{
-Chemical structures of the essential amino acids
+The chemical structures of the essential amino acids
+\itemize{
+\item ID - an identification number
+\item NAME - the amino acid name
+\item InChI - the InChI chemical structure
+\item InChIKey - the InChIKey chemical structure
+\item SMILES - the SMILES chemical structure
+}
 }
 \keyword{datasets}

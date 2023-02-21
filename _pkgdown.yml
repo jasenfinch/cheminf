@@ -1,0 +1,23 @@
+url: https://jasenfinch.github.io/cheminf/
+template:
+  bootstrap: 5
+
+reference:
+  - title: Example data
+    contents:
+    - amino_acids
+    
+  - title: Metabolite databases
+    contents:
+    - MetaboliteDatabase-class
+    - metaboliteDB
+    - entries
+    - calcAdducts
+    
+  - title: Other
+    contents:
+    - chemicalDescriptors
+    - smartsSearch
+    - convert
+    - smilesToMF
+    - ionisationProducts

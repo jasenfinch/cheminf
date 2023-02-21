@@ -5,6 +5,7 @@ Authors@R:
     person("Jasen", "Finch", , "jsf9@aber.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6070-7476"))
 Description: A collection of chemoinformatics tools to aid the annotation of untargeted electrospray ionisation mass spectrometry (ESI-MS) metabolomics data.
+BugReports: https://github.com/jasenfinch/cheminf/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -25,7 +26,8 @@ Imports:
     rlang,
     stringr,
     tibble
-Remote: 
+Remotes: 
     bioc::ChemmineOB,
-    jasenfinch/mzAnnotation@devel
+    aberHRML/mzAnnotation
 LazyData: true
+URL: https://jasenfinch.github.io/cheminf/

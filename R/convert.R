@@ -1,10 +1,14 @@
-#' Convert chemical notation
-#' @description convert between SMILES and Inchi and to InchiKey
-#' @param input a valid SMILE or Inchi
-#' @param input_type either "smiles" or "inchi", denoting the input type
-#' @param output_type either "smiles", "inchi" or "inchikey", denoting the output type
+#' Convert chemical structure notation
+#' @description Convert between SMILES and InChI and to InchiKey chemical structure notations.
+#' @param input a valid SMILE or InChI
+#' @param input_type either `"SMILES"` or `"INCHI"`, denoting the input type
+#' @param output_type either `"SMILES"`, `"INCHI"` or `"INCHIKEY"`, denoting the output type
+#' @details This functionality is not currently supported on Windows.
+#' @return The converted chemical structure.
 #' @examples
-#' convert("C[C@@H](C(=O)O)N",'SMILES','INCHI')
+#' if (Sys.info()["sysname"] != 'Windows'){
+#'   convert("C[C@@H](C(=O)O)N",'SMILES','INCHI')
+#' }
 #' @importFrom ChemmineOB convertFormat
 #' @importFrom stringr str_remove_all
 #' @export
@@ -30,11 +34,16 @@ convert <- function(input,
   return(output)
 }
 
-#' Convert a SMILES structure to a molecular formula
-#' @description Convert a SMILES structure to a molecular formula.
+#' Convert a SMILES structure to a molecular formula or accurate mass
+#' @rdname smilesTo
+#' @description Convert a SMILES structure to a molecular formula or accurate mass.
 #' @param SMILES a valid SMILES structure string
 #' @examples
+#' ## Convert a SMILES structure to a molecular formula
 #' smilesToMF("C[C@@H](C(=O)O)N")
+#' 
+#' ## Convert a SMILES structure to an accurate mass
+#' smilesToAccurateMass("C[C@@H](C(=O)O)N")
 #' @importFrom ChemmineOB prop_OB
 #' @export
 
@@ -50,11 +59,7 @@ smilesToMF <- function(SMILES){
   prop_OB(molRefs)$formula
 }
 
-#' Convert a SMILES structure to accurate mass
-#' @description convert a smile to an accurate mass
-#' @param SMILES a valid SMILES structure string
-#' @examples
-#' smilesToAccurateMass("C[C@@H](C(=O)O)N")
+#' @rdname smilesTo
 #' @importFrom ChemmineOB forEachMol exactMass_OB
 #' @export
 

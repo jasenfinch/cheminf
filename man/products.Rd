@@ -5,7 +5,7 @@
 \alias{calcAdducts,MetaboliteDatabase-method}
 \alias{PIPsearch}
 \alias{PIPsearch,MetaboliteDatabase-method}
-\title{Metabolite database ionisation product searches}
+\title{Ionisation product searches of a metabolite database}
 \usage{
 calcAdducts(db, id, adduct_rules_table = adduct_rules())
 
@@ -38,21 +38,27 @@ PIPsearch(
 
 \item{adduct_rules_table}{table containing adduct formation rules. Defaults to \code{adduct_rules()}.}
 
-\item{mz}{search mass to charge ratio}
+\item{mz}{mass to charge ratio to search}
 
-\item{adduct}{search adduct}
+\item{adduct}{the search adduct as available in \code{mzAnnotation::adduct_names()}}
 
-\item{ppm}{search ppm error}
+\item{ppm}{the parts per million error search threshold}
 
-\item{isotope}{search isotope}
+\item{isotope}{the search isotope as available in \code{mzAnnotation::isotope_names()}}
 
 \item{isotope_rules_table}{table containing isotope rules. Defaults to \code{isotope_rules()}.}
 }
 \value{
-A tibble containing the relevant product search results depending on the method used
+A tibble containing the relevant product search results depending on the method used.
 }
 \description{
 Methods for metabolite database ionisation product searches
+}
+\details{
+\itemize{
+\item \code{PIPsearch} - perform a putative ionisation product search on a metabolite database
+\item \code{calcAdducts} - calculate adduct mass to charge ratios for a metabolite database entry
+}
 }
 \examples{
 metabolite_database <- metaboliteDB(amino_acids)

@@ -2,16 +2,29 @@
 % Please edit documentation in R/metabolite_database.R
 \name{metaboliteDB}
 \alias{metaboliteDB}
-\title{Create a metabolite database}
+\title{Create a metabolite ionisation database}
 \usage{
 metaboliteDB(entries)
 }
 \arguments{
-\item{entries}{tibble containing accession information. If \code{type = 'remote'} this should be the name of the table containing the accession information within the SQL database.}
+\item{entries}{tibble containing accession information. See details.
+of the table containing the accession information within the SQL database.}
+}
+\value{
+An object of S4 class \code{MetaboliteDatabase}
 }
 \description{
-Build a metabolite database ready for use.
+Construct a metabolite electrospray ionisation database.
+}
+\details{
+The \code{entries} tibble should contain at least the following columns:
+\itemize{
+\item ID - Metabolite identification numbers
+\item NAME - Metabolite names
+\item SMILES - The metabolite SMILES structures
+}
 }
 \examples{
 db <- metaboliteDB(amino_acids)
+db
 }

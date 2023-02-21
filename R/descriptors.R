@@ -1,7 +1,8 @@
 #' SMARTS substructure search
-#' @description SMARTS substructure searching for SMILES chemical structures.
+#' @description Perform a SMARTS substructure searches a SMILES chemical structure.
 #' @param SMILES a valid SMILES structure string
 #' @param SMARTS a valid SMARTS symbol
+#' @return The number of SMARTS matches.
 #' @examples
 #' smartsSearch("C[C@@H](C(=O)O)N","[OX2H]")
 #' @importFrom ChemmineOB smartsSearch_OB
@@ -18,15 +19,16 @@ smartsSearch <- function(SMILES,SMARTS){
   smartsSearch_OB(molRefs,SMARTS)
 }
 
-#' Chemical descriptors
+#' Calculate chemical descriptors
+#' @description Calculate chemical descriptors from SMILES.
 #' @param SMILES a character vector of valid SMILES
 #' @importFrom dplyr mutate relocate
 #' @importFrom purrr map
 #' @importFrom furrr future_map_dfr future_map_int future_map_chr furrr_options future_map_dbl
-#' @export
+#' @return A tibble containing the chemical descriptor information for the input SMILES.
 #' @examples
-#' data(amino_acids)
 #' chemicalDescriptors(amino_acids$SMILES)
+#' @export
 
 chemicalDescriptors <- function(SMILES){
   
